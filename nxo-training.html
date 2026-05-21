@@ -318,7 +318,7 @@ window._saveToFirestore = async function(session) {
     setSyncStatus('syncing', 'GUARDANDO...');
     const ref = doc(db, 'nxo_users', USER_ID);
     // arrayUnion no sirve para objetos complejos, actualizamos el array entero
-    await setDoc(ref, { history: state.history }, { merge: true });
+   await setDoc(ref, { history: JSON.parse(JSON.stringify(state.history)) }, { merge: true });
     setSyncStatus('ok', 'GUARDADO EN NUBE ✓');
     setTimeout(() => setSyncStatus('ok', 'FIRESTORE ACTIVO'), 2500);
     return true;
